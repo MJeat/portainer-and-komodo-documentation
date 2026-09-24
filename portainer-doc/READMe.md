@@ -15,8 +15,9 @@ For edge compute/ edge agent, this is not for local usage. It's for testing on c
 
 The Stack means it runs from 1 docker compose file. 
 
-<img width="1847" height="764" alt="image" src="https://github.com/user-attachments/assets/248586b0-9c85-49b9-ba21-26e83245ba63" />
+<img width="1847" height="764" alt="image" src="https://github.com/user-attachments/assets/248586b0-9c85-49b9-ba21-26e83245ba63" /><br/>
 
+===
 For example, CTFd stack here has a lot of containers running. All of that because CTFd has one central `docker-compose.yml`  that starts all containers.
 
 <img width="1546" height="280" alt="image" src="https://github.com/user-attachments/assets/4b62d1aa-6f5f-4ebf-a260-fb2cc1d46976" />
