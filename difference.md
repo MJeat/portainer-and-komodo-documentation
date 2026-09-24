@@ -1,5 +1,8 @@
 [Certain] The main thing you're missing is that **Komodo and Portainer solve overlapping but different problems**: Portainer is primarily a **Docker/container management UI**, while Komodo is closer to a **self-hosted deployment and infrastructure management platform**.
 
+- Both portainer and komodo is for managing containers like docker, kurbenetes, etc.
+- However, people loves komodo more because it has automation, CI/CD pipeline from sources like GitHub, etc. Komodo has a little more leverage, but both are still capable of managing containers across servers.
+
 ### Portainer
 
 Think of Portainer as:
