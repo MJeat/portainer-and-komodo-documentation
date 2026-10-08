@@ -30,6 +30,57 @@ Same goes for my testing stack called `test`
 
 
 
+# How to Connect Portainer to manage other servers' dockers
+
+```
+Your PC
+├── Portainer Server
+└── Docker
+     └── containers
+
+Second PC / VM
+└── Docker
+     └── containers
+          ↑
+       Portainer Agent
+          ↑
+          │ LAN
+          ↓
+     Portainer Server
+```
+
+Phase 1 — Prepare the external Docker server
+
+On the second machine, make sure:
+
+- Docker is installed and running.
+- You have administrator/root access.
+- The machine can communicate with your Portainer machine over the LAN.
+
+Portainer's documentation lists Docker and administrative access as prerequisites for adding a standalone Docker environment.
+
+Phase 2 — Add it from Portainer
+
+On your main Portainer UI:
+- Environments → Add environment → Docker Standalone → Start Wizard → Agent (Not Edge Agent)
+  
+<img width="288" height="234" alt="image" src="https://github.com/user-attachments/assets/25108ea1-0695-4ae0-9e21-b7df525e339b" />
+
+<img width="1220" height="658" alt="image" src="https://github.com/user-attachments/assets/5c5e3a60-3b61-4335-828e-ba47f6b4c630" />
+
+
+- Portainer will give you an Agent installation command.
+
+Important: run that generated command on the second Docker server, not on your main PC.
+
+Then return to Portainer and complete the environment setup.
+
+<img width="500" height="206" alt="image" src="https://github.com/user-attachments/assets/65019c6c-1773-4d89-9ede-0ec8825d1359" />
+
+
+
+
+
 
 
 
