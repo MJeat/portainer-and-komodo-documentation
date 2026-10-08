@@ -49,7 +49,7 @@ Second PC / VM
      Portainer Server
 ```
 
-Phase 1 — Prepare the external Docker server
+### Phase 1 — Prepare the external Docker server
 
 On the second machine, make sure:
 
@@ -59,7 +59,7 @@ On the second machine, make sure:
 
 Portainer's documentation lists Docker and administrative access as prerequisites for adding a standalone Docker environment.
 
-Phase 2 — Add it from Portainer
+### Phase 2 — Add it from Portainer
 
 On your main Portainer UI:
 - Environments → Add environment → Docker Standalone → Start Wizard → Agent (Not Edge Agent)
