@@ -78,6 +78,14 @@ Then return to Portainer and complete the environment setup.
 <img width="500" height="206" alt="image" src="https://github.com/user-attachments/assets/65019c6c-1773-4d89-9ede-0ec8825d1359" />
 
 
+### To access the new server
+- Go to Home page and click on the right server name
+<img width="904" height="529" alt="image" src="https://github.com/user-attachments/assets/f98f5665-e010-4f24-b592-1d9bae83a899" />
+
+- You should have these ready and you are good to go with managing the containers and images
+
+<img width="1337" height="651" alt="image" src="https://github.com/user-attachments/assets/2cf20472-199f-45f7-a866-b31400b5b176" />
+
 
 
 
