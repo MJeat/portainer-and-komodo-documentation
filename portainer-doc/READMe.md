@@ -123,4 +123,121 @@ Then return to Portainer and complete the environment setup.
 | Temporary lab where everything is on your LAN              | **Normal Agent**                     |
 | Production infrastructure spread across networks           | **Edge Agent**                       |
 
+## Set up Edge Agent
+
+```
+Ubuntu Server #1 — MAIN
+├── Portainer
+│   ├── :9443 → Web UI
+│   └── :8000 → Edge Tunnel
+└── CTFd :8080
+
+              ▲
+              │ Edge connection
+              │
+Ubuntu Server #2 — DOCKER SERVER
+├── Portainer Edge Agent
+└── Your Docker containers
+```
+
+#### Step 1: 
+
+We need to change apps that use port 8000 to other ports because we want to leave the 8000 port for portainer edge agent.
+
+#### Step 2: Create Portainer container
+
+Portainer Edge Agent ``docker-compose.yml``:
+```
+services:
+  portainer:
+    # ============================================================
+    # PORTAINER
+    # ============================================================
+    # Portainer is a prebuilt image, so NO Dockerfile or
+    # requirements.txt is needed.
+    #
+    # IMPORTANT PORTS:
+    #   9443 = Portainer HTTPS Web UI
+    #   9000 = Portainer HTTP Web UI (optional/legacy)
+    #   8000 = Portainer Edge Agent tunnel INSIDE the container
+    #
+    # We map HOST 8001 -> CONTAINER 8000 because CTFd uses
+    # HOST 8000 on this server.
+    #
+    # If you ever move CTFd away from port 8000, you can change:
+    #
+    #   - "8001:8000"
+    #
+    # to:
+    #
+    #   - "8000:8000"
+    #
+    # But then make sure nothing else is using host port 8000.
+    # ============================================================
+
+    image: portainer/portainer-ce:lts
+
+    container_name: portainer
+
+    restart: always
+
+    ports:
+      # Portainer HTTPS Web UI
+      - "9443:9443"
+
+      # Portainer HTTP Web UI
+      # You can remove this if you only use HTTPS on 9443.
+      - "9000:9000"
+
+      # EDGE AGENT TUNNEL
+      #
+      # HOST PORT : 8001
+      #       ↓
+      # CONTAINER PORT : 8000
+      #
+      # Edge Agents should connect to:
+      # ws://YOUR_MAIN_SERVER_IP:8001
+      #
+      # DO NOT change.
+      - "8000:8000"
+
+    volumes:
+      # Allows Portainer to manage the Docker daemon
+      - /var/run/docker.sock:/var/run/docker.sock
+
+      # IMPORTANT:
+      # This stores Portainer's users, environments, settings,
+      # credentials, etc.
+      #
+      # DO NOT delete this volume unless you intentionally want
+      # to reset Portainer completely.
+      - portainer_data:/data
+
+volumes:
+  # Persistent Portainer data
+  portainer_data:
+
+```
+
+#### Step 3: Create Edge Agent
+
+On your main Portainer UI:
+- Environments → Add environment → Docker Standalone → Start Wizard → Edge Agent
+- Make sure the Portainer API URL is your main server's IP. Keep the port the same.
+
+<img width="604" height="554" alt="image" src="https://github.com/user-attachments/assets/55887429-abca-4fd8-b024-a27d863f6d1a" />
+
+- You can also test connectivity. Copy the `docker run` command and run it on the other server. It should show like this
+
+<img width="840" height="329" alt="image" src="https://github.com/user-attachments/assets/c1af37f2-911b-4663-b604-ccb02f5d1a8c" />
+
+
+- Once success, you will see this in the Home page. Click on it and it will connect.
+
+<img width="1318" height="167" alt="image" src="https://github.com/user-attachments/assets/c14e4f75-f2fc-457a-9b49-ba4dc15806fe" />
+
+
+
+
+
 
