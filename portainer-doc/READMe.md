@@ -88,8 +88,39 @@ Then return to Portainer and complete the environment setup.
 
 
 
+# Using Edge Agent
 
+| Feature                                                   | **Normal Agent**                                         | **Edge Agent**                                                   |
+| --------------------------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Connection direction**                                  | Portainer → Agent                                        | Agent → Portainer                                                |
+| **Who initiates connection?**                             | Main Portainer server                                    | Remote Docker server                                             |
+| **Default Agent port**                                    | `9001`                                                   | `8000` tunnel on Portainer                                       |
+| **Remote server needs inbound port open?**                | **Yes**, typically `9001`                                | **Usually no**                                                   |
+| **Remote server needs outbound internet/network access?** | Not necessarily                                          | **Yes**                                                          |
+| **Works behind NAT?**                                     | Can be difficult                                         | **Much easier**                                                  |
+| **Works behind restrictive firewall?**                    | Requires inbound access                                  | Usually easier because outbound connections are commonly allowed |
+| **Security exposure**                                     | Remote Agent port must be reachable by Portainer         | Remote Agent doesn't need its API exposed publicly               |
+| **Setup complexity**                                      | Simpler                                                  | Slightly more involved                                           |
+| **Best for**                                              | Servers you directly control on the same/private network | Remote servers, cloud servers, NAT/firewall-restricted servers   |
+| **Main Portainer must reach remote server?**              | **Yes**                                                  | **No direct inbound connection required**                        |
+| **Remote server must reach main Portainer?**              | Not necessarily                                          | **Yes**                                                          |
+| **Typical use**                                           | LAN / private network                                    | Internet / remote infrastructure                                 |
+| **Your setup**                                            | Works                                                    | **Better choice if Server #2 is remote**                         |
 
+- If Server #2 can comfortably accept an inbound connection from Server #1, Normal Agent is simpler.
 
+- If Server #2 is somewhere you can't or don't want to expose an inbound Agent port, Edge Agent becomes attractive.
+
+| Situation                                                  | Use                                  |
+| ---------------------------------------------------------- | ------------------------------------ |
+| Portainer + Docker are on the **same Ubuntu server**       | **Docker socket**                    |
+| Two servers on your **same LAN/private network**           | **Normal Agent** is usually simplest |
+| Remote VPS with a public IP                                | **Normal Agent** can work            |
+| Remote server is behind NAT                                | **Edge Agent**                       |
+| Remote server has a restrictive firewall                   | **Edge Agent**                       |
+| You don't want to expose Agent `9001` on the remote server | **Edge Agent**                       |
+| Managing many geographically distributed servers           | **Edge Agent**                       |
+| Temporary lab where everything is on your LAN              | **Normal Agent**                     |
+| Production infrastructure spread across networks           | **Edge Agent**                       |
 
 
